@@ -18,11 +18,11 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      name: 'LUCAS'
+      name: 'Default'
     steps:
     - task: Docker@2
       inputs:
         containerRegistry: 'connectionDocker'
-        repository: 'lucasssoaresoliveira/FirstProject'
+        repository: 'lucassoaresoliveira/cicd'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
