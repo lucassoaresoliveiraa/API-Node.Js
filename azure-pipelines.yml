@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'Default'
+  name: 'private-pool'
 
 jobs:
 - job: 'Build_and_Push_to_Docker_Hub'
