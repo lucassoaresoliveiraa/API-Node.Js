@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'default'
+  name: 'Default'
 
 jobs:
 - job: 'Build_and_Push_to_Docker_Hub'
