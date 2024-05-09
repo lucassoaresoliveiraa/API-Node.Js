@@ -1,28 +1,21 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
-resources:
-- repo: self
-
-variables:
-  tag: '$(Build.BuildId)'
+pool:
+  name: 'default'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: 'Build_and_Push_to_Docker_Hub'
   jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      name: 'Default'
+  - job: 'Build'
     steps:
+    - checkout: self
     - task: Docker@2
       inputs:
-        containerRegistry: 'connectionDocker'
-        repository: 'lucassoaresoliveira/cicd'
         command: 'buildAndPush'
-        Dockerfile: './Dockerfile'
+        repository: 'lucassoaresoliveira/cicd'
+        dockerfile: 'Dockerfile'
+        containerRegistry: 'connectionDocker'
+        tags: |
+          latest
+          $(Build.BuildId)
