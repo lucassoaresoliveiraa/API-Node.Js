@@ -4,18 +4,20 @@ trigger:
 pool:
   name: 'default'
 
-stages:
-- stage: 'Build_and_Push_to_Docker_Hub'
-  jobs:
-  - job: 'Build'
-    steps:
-    - checkout: self
-    - task: Docker@2
-      inputs:
-        command: 'buildAndPush'
-        repository: 'lucassoaresoliveira/cicd'
-        dockerfile: 'Dockerfile'
-        containerRegistry: 'connectionDocker'
-        tags: |
-          latest
-          $(Build.BuildId)
+jobs:
+- job: 'Build_and_Push_to_Docker_Hub'
+  steps:
+  - checkout: self  
+  - task: Docker@2
+    inputs:
+      command: 'login'
+      containerRegistry: 'connectionDocker'
+  - task: Docker@2
+    inputs:
+      command: 'buildAndPush'
+      repository: 'lucassoaresoliveira/cicd'
+      dockerfile: 'Dockerfile'
+      containerRegistry: 'connectionDocker' 
+      tags: |
+        latest
+        $(Build.BuildId)
